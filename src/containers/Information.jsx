@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useRef, useContext } from 'react';
 import '../styles/components/Information.css';
 
+import AppContext from '../context/AppContext';
+import { Link } from 'react-router-dom';
+
 const Information = () => {
+  const { state, addToBuyer } = useContext(AppContext);
+  const form = useRef(null);
+
+  const { cart } = state;
   return (
     <div className="Information">
       <div className="Information-content">
@@ -9,7 +16,7 @@ const Information = () => {
           <h2>Informacion de contacto:</h2>
         </div>
         <div className="Information-form">
-          <form action="">
+          <form ref={form}>
             <input type="text" placeholder="Nombre completo" name="name" />
             <input type="text" placeholder="Correo Electronico" name="email" />
             <input type="text" placeholder="Direccion" name="address" />
@@ -22,20 +29,24 @@ const Information = () => {
           </form>
         </div>
         <div className="Information-buttons">
-          <div className="Information-back">Regresar</div>
+          <div className="Information-back">
+            <Link to="/checkout">Regresar</Link>
+          </div>
           <div className="Information-next">
-            <Link to="/checkout/payment">pagar</Link>
+            <Link to="/checkout/payment">Pagar</Link>
           </div>
         </div>
       </div>
       <div className="Information-sidebar">
         <h3>Pedido:</h3>
-        <div className="Information-item">
-          <div className="Information-element">
-            <h4>ITEM Name</h4>
-            <span>$10</span>
+        {cart.map((item) => (
+          <div key={item.title} className="Information-item">
+            <div className="Information-element">
+              <h4>{item.title}</h4>
+              <span>{item.price}</span>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );
