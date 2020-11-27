@@ -3,7 +3,6 @@ import initialState from '../initialState';
 
 const useInitialState = () => {
   const [state, setState] = useState(initialState);
-
   const addToCart = (payload) => {
     setState({
       ...state,
@@ -18,6 +17,20 @@ const useInitialState = () => {
     });
   };
 
-  return { state, addToCart, removeFromCart };
+  const addToBuyer = (payload) => {
+    setState({
+      ...state,
+      buyer: [...state.buyer, payload],
+    });
+  };
+
+  const addNewOrder = (payload) => {
+    setState({
+      ...state,
+      orders: [...state.orders, payload],
+    });
+  };
+
+  return { state, addToCart, removeFromCart, addToBuyer, addNewOrder };
 };
 export default useInitialState;
