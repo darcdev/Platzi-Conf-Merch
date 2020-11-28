@@ -27,7 +27,6 @@ const Payment = () => {
         product: cart,
         payment: data,
       };
-
       addNewOrder(newOrder);
       history.push('/checkout/success');
     }
